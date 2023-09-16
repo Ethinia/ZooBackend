@@ -1,5 +1,5 @@
 const express = require("express");
-//const animalModel = require("../models/animal");
+const animalModel = require("../models/animal");
 const router = express.Router();
 
 let animals = [
@@ -33,13 +33,13 @@ router.post("/zoo/post",function(req,res) {
     if(!req.body.name) {
 		return res.status(400).json({message:"Please input animals name"});
 	}
-	let animal = {
+	let animal = new animalModel({
         animalID:req.body.animalID,
         species:req.body.species,
         name:req.body.name,
         age:req.body.age,
         habitat:req.body.habitat
-	}
+	})
 	animals.push(animal)
     res.status(201).json({message:"Created"});
 })
