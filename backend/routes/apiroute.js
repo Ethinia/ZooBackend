@@ -1,5 +1,4 @@
 const express = require("express");
-//const animalModel = require("../models/animal");
 const router = express.Router();
 const crypto = require("crypto");
 
