@@ -9,11 +9,18 @@ createToken = () => {
 
 let animals = [
     {
-    animalID:createToken(),
+    animalID:86512,
     species:"Giraffe",
 	name:"Pekka",
     age:5,
 	habitat:"Fields"
+    },
+    {
+    animalID:"asdf1742",
+    species:"Elephant",
+    name:"Matti",
+    age:25,
+    habitat:"Forest"
     },
     {
     animalID:createToken(),
@@ -24,11 +31,11 @@ let animals = [
     }
 ];
 
-router.get("/test",function(req,res) {
+router.get("/zoo",function(req,res) {
     res.status(200).json(animals);
 });
 
-router.post("/zoo/post",function(req,res) {
+router.post("/zoo",function(req,res) {
 	if(!req.body) {
 		return res.status(400).json({message:"Please fill in information"});
 	}
@@ -56,16 +63,29 @@ router.get('/zoo/search/:animalID', (req, res) => {
 });
 */
 
-router.post('/zoo', (req, res) => {
-    res.status(201).json('new animal added')
-});
-
 router.put('/zoo', (req, res) => {
     res.status(200).json('edited succesfully')
 });
+/*
+router.delete("/zoo/:animalID",function(req,res) {
+	animals.deleteOne({"animalID":req.params.animalID}, function(err) {
+		if(err) {
+			console.log("Failed to remove liike. Reason",err);
+			return res.status(500).json({message:"Internal server error"})
+		}
+		return res.status(200).json({message:"Successfully deleted item."});
+	})
+})
+*/
 
-router.delete('/zoo', (req, res) => {
-    res.status(200).json('item deleted')
+
+router.delete('/zoo/delete/:name', (req, res) => {
+    let search = animals.filter(animal => animal.name === req.params.name ).map((result) => {
+        animals.splice(result)
+        return (res.status(200).json("animal retired") )
+    })
+
+    res.search;
 });
 
 
