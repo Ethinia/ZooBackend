@@ -8,7 +8,7 @@ app.use(express.json());
 
 let port = 3001;
 
-app.use("/api",apiroute);
+app.use(apiroute);
 
 app.listen(port);
 
