@@ -35,24 +35,39 @@ router.get("/animals",(req,res) => {
     res.status(200).json(animals);
 });
 
-//ugly way to make it work
+
 router.get("/animals/:animalID",(req,res) => {
 
     let search = animals.filter(animal => animal.animalID === req.params.animalID ).map((result) => {
 
-        return (res.status(200).json(result) )
+        return (res.status(200).json(result))
     })
-
+    if(!req.body.animalID) {
+        return res.status(404).json({message:"Cant find animal with that ID"});
+    }
     res.search;
+
 });
 
 router.post("/animals",(req,res) => {
-	if(!req.body) {
-		return res.status(400).json({message:"Please fill in information"});
+	if(req.body.age < 0) {
+		return res.status(400).json({message:"Age cant be a negative value"});
+	}
+
+    if(!req.body.species) {
+    return res.status(400).json({message:"Please input animals species"});
 	}
 
     if(!req.body.name) {
 		return res.status(400).json({message:"Please input animals name"});
+	}
+
+    if(!req.body.age) {
+		return res.status(400).json({message:"Please input animals age"});
+	}
+
+    if(!req.body.habitat) {
+		return res.status(400).json({message:"Please input animals habitat"});
 	}
 	let animal = {
         animalID:createToken(),
@@ -62,23 +77,26 @@ router.post("/animals",(req,res) => {
         habitat:req.body.habitat
 	}
 	animals.push(animal)
-    res.status(201).json({message:"Created"});
+    res.status(201).json({message:"New animal arrived at the zoo"});
 })
 
-
+/*
 router.put('/animals', (req, res) => {
     res.status(200).json('edited succesfully')
 });
 
 router.delete("/animals/:animalID",(req,res) => {
 
-    let search = animals.filter(animal => animal.animalID === req.params.animalID ).map((result) => {
-
+    let search = animals.filter(animal => animal.animalID !== req.params.animalID ).map((result) => {
+        
         return (res.status(200).json(result) )
     })
+    
     animals.push(result)
+    
     res.status(200).json("animal retired")
 });
+*/
 
 module.exports = router;
 
