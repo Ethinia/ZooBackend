@@ -80,21 +80,20 @@ router.post("/animals",(req,res) => {
     res.status(201).json({message:"New animal arrived at the zoo"});
 })
 
+router.delete("/animals/:animalID",(req,res) => {
+
+    let search1 = animal => animal.animalID === req.params.animalID;
+    
+    animals.splice(search1, 1)
+    
+    res.status(200).json("animal retired")
+});
+
+
+
 /*
 router.put('/animals', (req, res) => {
     res.status(200).json('edited succesfully')
-});
-
-router.delete("/animals/:animalID",(req,res) => {
-
-    let search = animals.filter(animal => animal.animalID !== req.params.animalID ).map((result) => {
-        
-        return (res.status(200).json(result) )
-    })
-    
-    animals.push(result)
-    
-    res.status(200).json("animal retired")
 });
 */
 
